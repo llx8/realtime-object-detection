@@ -40,6 +40,7 @@ void CaptureStage::run() {
             if (output_queue_->try_push(frame)) {
                 break;
             }
+            std::this_thread::sleep_for(std::chrono::microseconds(100));
         }
     }
 }
