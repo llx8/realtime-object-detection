@@ -50,7 +50,7 @@ private:
     std::vector<Frame> frames_;
     std::vector<FreeNode> free_list_;
 
-    std::atomic<int> free_head_{-1};
+    alignas(64) std::atomic<int> free_head_{-1};
     std::atomic<int64_t> frame_counter_{0};
 };
 
