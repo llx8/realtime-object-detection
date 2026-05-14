@@ -71,13 +71,6 @@ void PreprocessStage::run() {
             }
         }
 
-        static int pp_count = 0;
-        if (pp_count < 3) {
-            LOGI("frame#%d: input=%dx%d scale=%.3f pad=(%d,%d)",
-                 pp_count, frame->width, frame->height, scale, pad_x, pad_y);
-        }
-        ++pp_count;
-
         frame->preprocessed_w = input_size_;
         frame->preprocessed_h = input_size_;
 

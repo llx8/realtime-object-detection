@@ -100,7 +100,6 @@ void V4l2Camera::setFormat(uint32_t width, uint32_t height, uint32_t pixelformat
     if (ioctl(fd_, VIDIOC_S_FMT, &fmt) != 0) {
         throw V4l2Exception("device", "VIDIOC_S_FMT");
     }
-    printf("set format ok: %ux%u\n", fmt.fmt.pix.width, fmt.fmt.pix.height);
 }
 
 void V4l2Camera::requestBuffers(uint32_t count) {
@@ -113,8 +112,6 @@ void V4l2Camera::requestBuffers(uint32_t count) {
     if (ioctl(fd_, VIDIOC_REQBUFS, &rb) != 0) {
         throw V4l2Exception("device", "VIDIOC_REQBUFS");
     }
-
-    printf("allocated %u buffers\n", rb.count);
 
     buffers_.reserve(rb.count);
     buffer_lengths_.reserve(rb.count);
@@ -154,7 +151,6 @@ void V4l2Camera::queueAllBuffers() {
             throw V4l2Exception("device", "VIDIOC_QBUF");
         }
     }
-    printf("queued %zu buffers ok\n", buffers_.size());
 }
 
 void V4l2Camera::startStream() {
@@ -163,7 +159,6 @@ void V4l2Camera::startStream() {
         throw V4l2Exception("device", "VIDIOC_STREAMON");
     }
     streaming_ = true;
-    printf("start capture ok\n");
 }
 
 void V4l2Camera::stopStream() {
