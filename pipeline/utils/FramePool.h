@@ -33,7 +33,6 @@ public:
     // 返回带custom deleter的shared_ptr，析构时自动归还池中
     std::shared_ptr<Frame> acquire();
 
-    int available() const; // O(n)遍历，给诊断用的
     int frameWidth() const { return width_; }
     int frameHeight() const { return height_; }
 

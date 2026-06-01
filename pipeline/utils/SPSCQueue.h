@@ -59,24 +59,6 @@ public:
         return true;
     }
 
-    bool empty() const {
-        size_t r = read_idx_.load(std::memory_order_relaxed);
-        size_t w = write_idx_.load(std::memory_order_relaxed);
-        return r == w;
-    }
-
-    bool full() const {
-        size_t r = read_idx_.load(std::memory_order_relaxed);
-        size_t w = write_idx_.load(std::memory_order_relaxed);
-        return (w - r) == capacity_;
-    }
-
-    size_t size() const {
-        size_t r = read_idx_.load(std::memory_order_relaxed);
-        size_t w = write_idx_.load(std::memory_order_relaxed);
-        return w - r;
-    }
-
     size_t capacity() const {
         return capacity_;
     }

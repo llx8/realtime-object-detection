@@ -58,36 +58,6 @@ void V4l2Camera::closeDevice() {
     }
 }
 
-void V4l2Camera::enumFormats() {
-    int fmt_index = 0;
-    while (true) {
-        struct v4l2_fmtdesc fmtdesc;
-        std::memset(&fmtdesc, 0, sizeof(fmtdesc));
-        fmtdesc.index = fmt_index;
-        fmtdesc.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-
-        if (ioctl(fd_, VIDIOC_ENUM_FMT, &fmtdesc) != 0) break;
-
-        int frame_index = 0;
-        while (true) {
-            struct v4l2_frmsizeenum fsenum;
-            std::memset(&fsenum, 0, sizeof(fsenum));
-            fsenum.index = frame_index;
-            fsenum.pixel_format = fmtdesc.pixelformat;
-
-            if (ioctl(fd_, VIDIOC_ENUM_FRAMESIZES, &fsenum) != 0) break;
-
-            if (fsenum.type == V4L2_FRMSIZE_TYPE_DISCRETE) {
-                printf("format %s (0x%08X), framesize %u x %u\n",
-                       fmtdesc.description, fmtdesc.pixelformat,
-                       fsenum.discrete.width, fsenum.discrete.height);
-            }
-            ++frame_index;
-        }
-        ++fmt_index;
-    }
-}
-
 void V4l2Camera::setFormat(uint32_t width, uint32_t height, uint32_t pixelformat) {
     struct v4l2_format fmt;
     std::memset(&fmt, 0, sizeof(fmt));
@@ -168,7 +138,6 @@ void V4l2Camera::stopStream() {
         throw V4l2Exception("device", "VIDIOC_STREAMOFF");
     }
     streaming_ = false;
-    printf("stop capture ok\n");
 }
 
 V4l2Buffer V4l2Camera::dequeueBuffer() {

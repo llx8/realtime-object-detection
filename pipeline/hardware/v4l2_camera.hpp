@@ -28,7 +28,6 @@ public:
     V4l2Camera(const V4l2Camera&) = delete;
     V4l2Camera& operator=(const V4l2Camera&) = delete;
 
-    void enumFormats();
     void setFormat(uint32_t width, uint32_t height, uint32_t pixelformat);
     void requestBuffers(uint32_t count);
     void queueAllBuffers();

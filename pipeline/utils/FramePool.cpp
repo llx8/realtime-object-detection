@@ -69,14 +69,4 @@ void FramePool::release(int index) {
                                                std::memory_order_acquire));
 }
 
-int FramePool::available() const {
-    int count = 0;
-    int head = free_head_.load(std::memory_order_acquire);
-    while (head != -1) {
-        ++count;
-        head = free_list_[head].next;
-    }
-    return count;
-}
-
 }  // namespace yolo_pipeline

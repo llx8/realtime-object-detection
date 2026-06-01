@@ -13,9 +13,7 @@ namespace yolo_pipeline {
 
 enum class PixelFormat {
     RGB,
-    BGR,
-    NV21,
-    YUV420
+    BGR
 };
 
 struct Frame {
